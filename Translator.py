@@ -1,22 +1,33 @@
 import speech_recognition as sr
 import pyttsx3
+from deep_translator import GoogleTranslator
+
 
 r = sr.Recognizer() 
- 
-# Function to convert text to
-# speech
-def SpeakText(command):
-     
-    # Initialize the engine
-    engine = pyttsx3.init()
-    engine.say(command) 
+engine = pyttsx3.init()
+
+languages = {"en": "en_US",
+             "he": "he_IL",
+             "zh": "zh-TW",
+             "ar": "ar-SA"}
+
+
+def change_voice(language):
+    for voice in engine.getProperty('voices'):
+        if language in voice.languages:
+            engine.setProperty('voice', voice.id)
+
+            return True
+
+
+def speak_text(command, lang):
+    change_voice(lang)
+    translated = GoogleTranslator(source='auto', target=lang[:2]).translate(command)
+    engine.say(translated) 
     engine.runAndWait()
-     
-     
-# Loop infinitely for user to
-# speak
- 
-def getSpeech():
+
+
+def get_speech(lang):
     try:
          
         with sr.Microphone() as source2:
@@ -28,14 +39,18 @@ def getSpeech():
              
             audio2 = r.listen(source2)
              
-            MyText = r.recognize_google(audio2)
-            MyText = MyText.lower()
+            myText = r.recognize_google(audio2, language=lang)
+            myText = myText.lower()
  
-            print("Did you say ", MyText)
-            SpeakText(MyText)
+            print("Did you say ", myText)
+            
+            return myText
              
     except sr.RequestError as e:
         print("Could not request results; {0}".format(e))
          
     except sr.UnknownValueError:
         print("unknown error occurred")
+
+
+speak_text(get_speech(languages["he"]), 'en')
