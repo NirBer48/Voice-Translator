@@ -27,16 +27,15 @@ class Window(QWidget):
         font = QFont('Arial', 15) 
         dropDownLanguagesLeft.setFont(font) 
         dropDownLanguagesRight.setFont(font) 
-        # Add widgets to the layout
         layout.addWidget(dropDownLanguagesLeft, 0, 0)
         layout.addWidget(dropDownLanguagesRight, 0, 1)
-        listenLeft = QPushButton("speak")
-        listenRight = QPushButton("speak")
-        listenLeft.setGeometry(200, 150, 100, 100)
-        listenRight.setGeometry(200, 150, 100, 100)
+
+        listenLeft = QPushButton("speak", self)
+        listenRight = QPushButton("speak", self)
+        listenLeft.setFixedSize(100, 100)
+        listenRight.setFixedSize(100, 100)
         listenLeft.setStyleSheet("border-radius : 50; border : 2px solid black")
         listenRight.setStyleSheet("border-radius : 50; border : 2px solid black")
-        # adding action to a button
         listenLeft.clicked.connect(lambda: self.listen_and_speak(str(dropDownLanguagesLeft.currentText()), str(dropDownLanguagesRight.currentText())))
         listenRight.clicked.connect(lambda: self.listen_and_speak(str(dropDownLanguagesRight.currentText()), str(dropDownLanguagesLeft.currentText())))
         layout.addWidget(listenLeft, 1, 0)

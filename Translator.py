@@ -2,6 +2,8 @@ import speech_recognition as sr
 import pyttsx3
 from deep_translator import GoogleTranslator
 
+# https://www.techonthenet.com/js/language_tags.php
+
 class Translator:
     def __init__(self):
         self.recognizer = sr.Recognizer() 
