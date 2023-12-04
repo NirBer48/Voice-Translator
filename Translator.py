@@ -53,7 +53,7 @@ class Translator:
 
 if __name__ == "__main__":
     fromLang = "Hebrew"
-    toLang = "English"
+    toLang = "Japanese"
 
     trns = Translator()
     text = trns.get_speech(fromLang)
