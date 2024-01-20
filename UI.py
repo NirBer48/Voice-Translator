@@ -24,7 +24,7 @@ class Window(QWidget):
         dropDownLanguagesRight = QComboBox()
         dropDownLanguagesRight.setFixedSize(100,50)
         dropDownLanguagesRight.addItems(list(self.Translator.languages.keys()))
-        font = QFont('Arial', 15) 
+        font = QFont('Arial', 12) 
         dropDownLanguagesLeft.setFont(font) 
         dropDownLanguagesRight.setFont(font) 
         layout.addWidget(dropDownLanguagesLeft, 0, 0)
@@ -34,13 +34,14 @@ class Window(QWidget):
         listenRight = QPushButton("speak", self)
         listenLeft.setFixedSize(100, 100)
         listenRight.setFixedSize(100, 100)
+        listenLeft.setFont(font)
+        listenRight.setFont(font)
         listenLeft.setStyleSheet("border-radius : 50; border : 2px solid black")
         listenRight.setStyleSheet("border-radius : 50; border : 2px solid black")
         listenLeft.clicked.connect(lambda: self.listen_and_speak(str(dropDownLanguagesLeft.currentText()), str(dropDownLanguagesRight.currentText())))
         listenRight.clicked.connect(lambda: self.listen_and_speak(str(dropDownLanguagesRight.currentText()), str(dropDownLanguagesLeft.currentText())))
         layout.addWidget(listenLeft, 1, 0)
         layout.addWidget(listenRight, 1, 1)
-        # Set the layout on the application's window
         self.setLayout(layout)
 
     def listen_and_speak(self, fromLanguage, toLanguage):
